@@ -8,18 +8,23 @@ import lombok.Getter;
  * @Descripton: 响应码
  **/
 @Getter
-public enum  ResponseEnum {
+public enum ResultEnum {
 
     SUCCESS(0, "成功"),
-    ERROR(1, "失败")
+
+    ERROR(1, "失败"),
+
+    PRODUCT_NOT_EXIST(10, "商品不存在"),
+
     ;
 
     Integer code;
 
-    String desc;
+    String message;
 
-    ResponseEnum(Integer code, String desc) {
+    ResultEnum(Integer code, String message) {
         this.code = code;
-        this.desc = desc;
+        this.message = message;
     }
+
 }

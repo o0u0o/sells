@@ -1,9 +1,7 @@
 package com.o0u0o.sell.vo;
 
-import com.o0u0o.sell.enums.ResponseEnum;
+import com.o0u0o.sell.enums.ResultEnum;
 import lombok.Data;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  * @Author aiuiot
@@ -34,19 +32,19 @@ public class ResultVo<T> {
     }
 
     public static <T> ResultVo success(){
-        return new ResultVo(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getDesc());
+        return new ResultVo(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
     }
 
     public static <T> ResultVo<T> success(String msg){
-        return new ResultVo<>(ResponseEnum.SUCCESS.getCode(), msg);
+        return new ResultVo<>(ResultEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> ResultVo success(T data){
-        return new ResultVo(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getDesc(), data);
+        return new ResultVo(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage(), data);
     }
 
     public static ResultVo error(){
-        return new ResultVo(ResponseEnum.ERROR.getCode(), ResponseEnum.ERROR.getDesc());
+        return new ResultVo(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMessage());
     }
 
 }
