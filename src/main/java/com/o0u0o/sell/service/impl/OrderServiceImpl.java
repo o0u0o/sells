@@ -1,5 +1,6 @@
 package com.o0u0o.sell.service.impl;
 
+import com.o0u0o.sell.converter.OrderMaster2OrderDTOConverter;
 import com.o0u0o.sell.dataobject.OrderDetail;
 import com.o0u0o.sell.dataobject.OrderMaster;
 import com.o0u0o.sell.dataobject.ProductInfo;
@@ -19,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -133,6 +135,11 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+
+
         return null;
     }
 
