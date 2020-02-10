@@ -1,5 +1,6 @@
 package com.o0u0o.sell.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.o0u0o.sell.enums.ResultEnum;
 import lombok.Data;
 
@@ -7,8 +8,11 @@ import lombok.Data;
  * @Author aiuiot
  * @Date 2020/2/5 4:58 下午
  * @Descripton: http请求返回对象
+ * 使用 @JsonInclude(JsonInclude.Include.NON_NULL) 注解
+ *  结果为 null的字段 则不返回给前端
  **/
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVo<T> {
 
     /** 错误码. */

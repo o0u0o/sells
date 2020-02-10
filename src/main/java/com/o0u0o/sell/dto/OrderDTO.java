@@ -1,14 +1,12 @@
 package com.o0u0o.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.o0u0o.sell.dataobject.OrderDetail;
-import com.o0u0o.sell.enums.OrderStatusEnum;
-import com.o0u0o.sell.enums.PayStatusEnum;
+
 import com.o0u0o.sell.utils.serializer.Date2LongSerializer;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +15,12 @@ import java.util.List;
  * @Author aiuiot
  * @Date 2020/2/6 2:15 下午
  * @Descripton: 订单数据传输对象
+ *
+ * 使用 @JsonInclude(JsonInclude.Include.NON_NULL) 注解
+ * 结果为null 则不返回给前端
  **/
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     private String orderId;
@@ -45,11 +47,11 @@ public class OrderDTO {
     private Integer payStatus;
 
     /** 创建时间. */
-    //@JsonSerialize(using = Date2LongSerializer.class)
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间 */
-    //@JsonSerialize(using = Date2LongSerializer.class)
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;

@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * @Author aiuiot
  * @Date 2020/2/10 4:13 下午
- * @Descripton:
+ * @Descripton: Data 类型转换为 Long 类型
  **/
 public class Date2LongSerializer extends JsonSerializer<Date> {
 
