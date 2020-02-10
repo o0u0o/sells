@@ -25,6 +25,8 @@ public class OrderServiceImplTest {
 
     private final String BUYER_OPENID = "110110";
 
+    private final String ORDER_ID = "1581324744150239124";
+
     /**
      * 创建订单
      *
@@ -59,8 +61,15 @@ public class OrderServiceImplTest {
         Assert.assertNotNull(result);
     }
 
+    /**
+     * 查询单个订单
+     * @throws Exception
+     */
     @Test
-    public void findOne() {
+    public void findOne() throws Exception {
+        OrderDTO result = orderService.findOne(ORDER_ID);
+        log.info("【查询单个订单】result{}", result);
+        Assert.assertEquals(ORDER_ID, result.getOrderId());
     }
 
     @Test

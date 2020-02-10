@@ -17,9 +17,12 @@ import com.o0u0o.sell.utils.KeyUtil;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import sun.text.CollatorUtilities;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -100,15 +103,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     *
+     * 查询单个订单
      * @param orderId
      * @return
      */
     @Override
     public OrderDTO findOne(String orderId) {
-        return null;
+        OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        if (orderMaster == null){
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+        }
+
+        //查询订单详情
+        List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);
+        if (CollectionUtils.isEmpty(orderDetailList)){
+            throw new SellException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
+        }
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(orderMaster, orderDTO);
+        orderDTO.setOrderDetailList(orderDetailList);
+        return orderDTO;
     }
 
+    /**
+     * 根据买家openid 查询订单列表
+     * @param buyerOpenid
+     * @param pageable
+     * @return
+     */
     @Override
     public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
         return null;
