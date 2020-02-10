@@ -3,6 +3,7 @@ package com.o0u0o.sell.service.impl;
 import com.o0u0o.sell.dataobject.OrderDetail;
 import com.o0u0o.sell.dto.OrderDTO;
 import com.o0u0o.sell.enums.OrderStatusEnum;
+import com.o0u0o.sell.enums.PayStatusEnum;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -94,11 +95,24 @@ public class OrderServiceImplTest {
         Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
     }
 
+    /**
+     * 订单完结
+     */
     @Test
     public void finish() {
+        //构造模拟数据
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
+    /**
+     * 支付订单
+     */
     @Test
     public void paid() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 }
