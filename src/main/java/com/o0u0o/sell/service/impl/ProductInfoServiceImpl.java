@@ -46,9 +46,25 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         return repository.save(productInfo);
     }
 
+    /**
+     * 增加库存
+     * @param cartDTOList
+     */
     @Override
     public void increaseStock(List<CartDTO> cartDTOList) {
+        for (CartDTO cartDTO : cartDTOList) {
+            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            //商品不存在
+            if (productInfo == null){
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
 
+            //增加库存
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
+
+            repository.save(productInfo);
+        }
     }
 
     /**
