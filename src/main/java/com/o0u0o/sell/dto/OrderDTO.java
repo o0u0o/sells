@@ -1,9 +1,12 @@
 package com.o0u0o.sell.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.o0u0o.sell.dataobject.OrderDetail;
 import com.o0u0o.sell.enums.OrderStatusEnum;
 import com.o0u0o.sell.enums.PayStatusEnum;
+import com.o0u0o.sell.utils.serializer.Date2LongSerializer;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -42,9 +45,11 @@ public class OrderDTO {
     private Integer payStatus;
 
     /** 创建时间. */
+    //@JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间 */
+    //@JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;

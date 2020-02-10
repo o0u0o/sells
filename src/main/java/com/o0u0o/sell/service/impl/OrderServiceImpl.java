@@ -5,6 +5,8 @@ import com.o0u0o.sell.dataobject.OrderMaster;
 import com.o0u0o.sell.dataobject.ProductInfo;
 import com.o0u0o.sell.dto.CartDTO;
 import com.o0u0o.sell.dto.OrderDTO;
+import com.o0u0o.sell.enums.OrderStatusEnum;
+import com.o0u0o.sell.enums.PayStatusEnum;
 import com.o0u0o.sell.enums.ResultEnum;
 import com.o0u0o.sell.exception.SellException;
 import com.o0u0o.sell.repository.OrderDetailRepository;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -50,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
 
         String orderId = KeyUtil.genUniqueKey();
@@ -63,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
             //2.计算订单总价 单价*数量 再累加原先的总价
-            orderAmount = orderDetail.getProductPrice()
+            orderAmount = productInfo.getProductPrice()
                     .multiply(new BigDecimal(orderDetail.getProductQuantity()))
                     .add(orderAmount);
 
@@ -71,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetail.setOrderId(orderId);
             BeanUtils.copyProperties(productInfo ,orderDetail);
-            OrderDetail save = orderDetailRepository.save(orderDetail);
+            orderDetailRepository.save(orderDetail);
 
 //            CartDTO cartDTO = new CartDTO(orderDetail.getProductId(), orderDetail.getProductQuantity());
 //            cartDTOList.add(cartDTO);
@@ -79,16 +83,19 @@ public class OrderServiceImpl implements OrderService {
 
         // 3.写入订单数据库
         OrderMaster orderMaster = new OrderMaster();
+        BeanUtils.copyProperties(orderDTO, orderMaster);
         orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
-        BeanUtils.copyProperties(orderDTO, orderMaster);
+        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
 
-        //4.扣除库存
+        //4.扣除库存 可鞥会多线程同时扣库存 使用Redis 锁机制处理
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
                 .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productInfoService.decreaseStock(cartDTOList);
+
         return orderDTO;
     }
 

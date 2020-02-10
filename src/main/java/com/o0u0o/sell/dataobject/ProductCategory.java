@@ -15,8 +15,8 @@ import java.util.Date;
  * 该注解 @DynamicUpdate 用户动态更新 如时间
  **/
 @Entity
-@DynamicUpdate
 @Data
+@DynamicUpdate
 public class ProductCategory {
 
     /** 类目ID. */

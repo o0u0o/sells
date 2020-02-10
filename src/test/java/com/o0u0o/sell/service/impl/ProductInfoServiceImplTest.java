@@ -45,13 +45,13 @@ public class ProductInfoServiceImplTest {
     @Test
     public void save() {
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductId("123458");
+        productInfo.setProductId("123459");
         productInfo.setCategoryType(2);
-        productInfo.setProductName("武汉周黑鸭");
-        productInfo.setProductDescription("鸭子不是武汉的");
+        productInfo.setProductName("四川城口老腊肉");
+        productInfo.setProductDescription("特别好吃");
         productInfo.setProductIcon("http://www.o0u0o.com");
         productInfo.setProductStock(100);
-        productInfo.setProductPrice(new BigDecimal(87.23));
+        productInfo.setProductPrice(new BigDecimal(43));
         productInfo.setProductStatus(ProductStatus.UP.getCode());
         ProductInfo save = productInfoService.save(productInfo);
         Assert.assertNotNull(save);
