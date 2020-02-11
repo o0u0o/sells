@@ -7,12 +7,14 @@ import com.o0u0o.sell.service.BuyerService;
 import com.o0u0o.sell.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author aiuiot
  * @Date 2020/2/11 12:08 上午
  * @Descripton:
  **/
+@Service
 @Slf4j
 public class BuyerServiceImpl implements BuyerService {
 

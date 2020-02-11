@@ -4,6 +4,7 @@ spring:
     username: root
     password: Mysql8.0
     url: jdbc:mysql://127.0.0.1:3306/sell?characterEncoding=utf-8&useSSL=false
+
   jpa:
     show-sql: true
   # 配置为空的字段不返回给前端
@@ -12,3 +13,7 @@ spring:
 
 server:
   context-path: /sell
+
+wechat:
+  mpAppId: wxc19f4cd1f87ebf3c
+  mpAppSecret: 3bf784ecfb89a4c63c57976a26b2c63a
