@@ -26,7 +26,7 @@ public class ProductCategoryRepositoryTest {
      */
     @Test
     public void findOneTest(){
-        ProductCategory category = repository.findOne(1);
+        ProductCategory category = repository.findById(1).orElse(null);
         System.out.println(category.toString());
     }
 
@@ -48,7 +48,7 @@ public class ProductCategoryRepositoryTest {
      */
     @Test
     public void updateTest(){
-        ProductCategory category = repository.findOne(2);
+        ProductCategory category = repository.findById(2).orElse(null);
         //category.setCategoryName("鞋靴箱包");
         category.setCategoryType(3);
         repository.save(category);

@@ -112,7 +112,13 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public OrderDTO findOne(String orderId) {
-        OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        /**
+         * 1.5.x 升级 2.x.x
+         * 无法使用findOne() 该用 findById()
+         * SpringBoot 2特性
+         * .orElse(null) 若查不到数据则返回null
+         */
+        OrderMaster orderMaster = orderMasterRepository.findById(orderId).orElse(null);
         if (orderMaster == null){
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }

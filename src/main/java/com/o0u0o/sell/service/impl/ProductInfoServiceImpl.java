@@ -28,7 +28,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Override
     public ProductInfo findOne(String productId) {
-        return repository.findOne(productId);
+        return repository.findById(productId).orElse(null);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
     public void increaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
-            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = repository.findById(cartDTO.getProductId()).orElse(null);
             //商品不存在
             if (productInfo == null){
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
@@ -75,7 +75,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
-            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = repository.findById(cartDTO.getProductId()).orElse(null);
             if (productInfo == null){
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
