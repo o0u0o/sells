@@ -1,12 +1,15 @@
 package com.o0u0o.sell.form;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.validation.constraints.NotEmpty;
 /**
  * @Author aiuiot
  * @Date 2020/2/10 8:32 下午
  * @Descripton: 订单表单
+ *
+ * 升级改动：
+ *  由 org.hibernate.validator.constraints.NotEmpty 改为 javax.validation.constraints.NotEmpty;
+ *
  **/
 @Data
 public class OrderForm {

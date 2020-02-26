@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Mysql8.0
+    url: jdbc:mysql://127.0.0.1:3306/sell?characterEncoding=utf-8&useSSL=false
+
+  jpa:
+    show-sql: true
+  # 配置为空的字段不返回给前端
+  jackson:
+    default-property-inclusion: non_null
+
+# 项目名
+server:
+  servlet:
+    context-path: /sell
+
+projectUrl:
+  # 微信公众号授权
+  wechatMpAuthorize: http://isale.natapp1.cc
+  wechatOpenAuthorize: http://isale.natapp1.cc/
+  sell: http://isale.natapp1.cc/
+
+wechat:
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: http://app-all.b0.upaiyun.com/01d3059e868cedea3b361b2ad1c05254.p12
+#  keyPath: /var/weixin_cert/h5.p12
+  #异步通知url
+  notifyUrl: http://isale.natapp1.cc/sell/pay/notify
+
+# 又拍云服务 见 https://console.upyun.com/services/file/
+upyun:
+  bucketName: XXX
+  userName: xxx
+  password: xxxx
+  imageHost: http://xxx.com/
+

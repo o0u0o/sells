@@ -1,5 +1,6 @@
 package com.o0u0o.sell.service.impl;
 
+import com.o0u0o.sell.config.UpYunConfig;
 import com.o0u0o.sell.dataobject.ProductInfo;
 import com.o0u0o.sell.dto.CartDTO;
 import com.o0u0o.sell.enums.ProductStatus;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @Author aiuiot
@@ -26,14 +29,22 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Autowired
     private ProductInfoRepository repository;
 
+    @Autowired
+    private UpYunConfig upYunConfig;
+
     @Override
     public ProductInfo findOne(String productId) {
-        return repository.findById(productId).orElse(null);
+        Optional<ProductInfo> productInfoOptional = repository.findById(productId);
+        //如果查询出又内容
+        productInfoOptional.ifPresent(e-> e.addImageHost(upYunConfig.getImageHost()));
+        return productInfoOptional.orElse(null);
     }
 
     @Override
     public List<ProductInfo> findUpAll() {
-        return repository.findByProductStatus(ProductStatus.UP.getCode());
+        return repository.findByProductStatus(ProductStatus.UP.getCode()).stream()
+                .map(e -> e.addImageHost(upYunConfig.getImageHost()))
+                .collect(Collectors.toList());
     }
 
     @Override
