@@ -39,8 +39,8 @@ public class OrderServiceImplTest {
     @Test
     public void create() {
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setBuyerName("王鹤向");
-        orderDTO.setBuyerAddress("贵州省贵阳市南明区");
+        orderDTO.setBuyerName("李长青");
+        orderDTO.setBuyerAddress("四川省资阳市安岳县");
         orderDTO.setBuyerPhone("13009791620");
         orderDTO.setBuyerOpenid(BUYER_OPENID);
 
@@ -48,13 +48,13 @@ public class OrderServiceImplTest {
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail o1 = new OrderDetail();
         o1.setProductId("123458");
-        o1.setProductQuantity(1);
+        o1.setProductQuantity(2);
 
 
-        // 2件城口老腊肉
+        // 1件城口老腊肉
         OrderDetail o2 = new OrderDetail();
         o2.setProductId("123459");
-        o2.setProductQuantity(2);
+        o2.setProductQuantity(1);
 
         orderDetailList.add(o1);
         orderDetailList.add(o2);

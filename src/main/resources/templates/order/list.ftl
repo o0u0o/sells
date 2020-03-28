@@ -108,39 +108,40 @@
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script>
-    var websocket = null;
-    if('WebSocket' in window) {
-        websocket = new WebSocket('ws://sell.natapp4.cc/sell/webSocket');
-    }else {
-        alert('该浏览器不支持websocket!');
-    }
 
-    websocket.onopen = function (event) {
-        console.log('建立连接');
-    }
+<#--<script>-->
+<#--    var websocket = null;-->
+<#--    if('WebSocket' in window) {-->
+<#--        websocket = new WebSocket('ws://sell.natapp4.cc/sell/webSocket');-->
+<#--    }else {-->
+<#--        alert('该浏览器不支持websocket!');-->
+<#--    }-->
 
-    websocket.onclose = function (event) {
-        console.log('连接关闭');
-    }
+<#--    websocket.onopen = function (event) {-->
+<#--        console.log('建立连接');-->
+<#--    }-->
 
-    websocket.onmessage = function (event) {
-        console.log('收到消息:' + event.data)
-        //弹窗提醒, 播放音乐
-        $('#myModal').modal('show');
+<#--    websocket.onclose = function (event) {-->
+<#--        console.log('连接关闭');-->
+<#--    }-->
 
-        document.getElementById('notice').play();
-    }
+<#--    websocket.onmessage = function (event) {-->
+<#--        console.log('收到消息:' + event.data)-->
+<#--        //弹窗提醒, 播放音乐-->
+<#--        $('#myModal').modal('show');-->
 
-    websocket.onerror = function () {
-        alert('websocket通信发生错误！');
-    }
+<#--        document.getElementById('notice').play();-->
+<#--    }-->
 
-    window.onbeforeunload = function () {
-        websocket.close();
-    }
+<#--    websocket.onerror = function () {-->
+<#--        alert('websocket通信发生错误！');-->
+<#--    }-->
 
-</script>
+<#--    window.onbeforeunload = function () {-->
+<#--        websocket.close();-->
+<#--    }-->
+
+<#--</script>-->
 
 </body>
 </html>
