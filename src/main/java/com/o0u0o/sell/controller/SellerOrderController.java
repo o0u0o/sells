@@ -2,6 +2,7 @@ package com.o0u0o.sell.controller;
 
 import com.o0u0o.sell.dto.OrderDTO;
 import com.o0u0o.sell.enums.ResultEnum;
+import com.o0u0o.sell.exception.SellException;
 import com.o0u0o.sell.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,19 +47,30 @@ public class SellerOrderController {
         return new ModelAndView("order/list", map);
     }
 
+    /**
+     * 取消订单
+     * @param orderId 订单ID
+     * @param map
+     * @return
+     */
     @GetMapping("/cancel")
     public ModelAndView cancel(@RequestParam("orderId") String orderId,
                                Map<String, Object> map){
-        OrderDTO orderDTO = orderService.findOne(orderId);
-        if (orderDTO == null){
-            log.error("【卖家端取消订单】查询不到订单");
-            map.put("msg", ResultEnum.ORDER_NOT_EXIST.getMessage());
+        //捕获异常
+        try{
+            OrderDTO orderDTO = orderService.findOne(orderId);
+            //取消订单
+            orderService.cancel(orderDTO);
+        }catch (SellException e){
+            log.error("【卖家端取消订单】发生异常", e);
+            map.put("msg", e.getMessage());
             map.put("url", "/sell/seller/order/list");
-            return new ModelAndView("common.error", map);
+            return new ModelAndView("common/error", map);
         }
-        orderService.cancel(orderDTO);
 
-        return null;
+        map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("common/success", map);
     }
 
 }

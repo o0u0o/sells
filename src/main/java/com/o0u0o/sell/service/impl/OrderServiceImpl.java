@@ -29,6 +29,7 @@ import org.springframework.util.CollectionUtils;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,9 +88,12 @@ public class OrderServiceImpl implements OrderService {
 //            cartDTOList.add(cartDTO);
         }
 
-        // 3.写入订单数据库
+
+        /** 3.写入订单数据库 */
         OrderMaster orderMaster = new OrderMaster();
         orderDTO.setOrderId(orderId);
+        //设置创建时间和更新时间为null，交由数据库管理
+        orderDTO.setCreateTime(new Date());
         BeanUtils.copyProperties(orderDTO, orderMaster);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());

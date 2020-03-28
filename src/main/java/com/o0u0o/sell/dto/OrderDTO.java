@@ -51,11 +51,11 @@ public class OrderDTO {
 
     /** 创建时间. */
     @JsonSerialize(using = Date2LongSerializer.class)
-    private Date createTime;
+    private Date createTime = new Date();
 
     /** 更新时间 */
     @JsonSerialize(using = Date2LongSerializer.class)
-    private Date updateTime;
+    private Date updateTime = new Date();
 
     List<OrderDetail> orderDetailList;
 
