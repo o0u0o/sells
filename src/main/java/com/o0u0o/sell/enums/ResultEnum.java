@@ -44,6 +44,7 @@ public enum ResultEnum {
 
     ORDER_FINISH_SUCCESS(23, "完结订单成功"),
 
+    PRODUCT_STATUS_ERROR(24, "产品状态错误")
 
     ;
 

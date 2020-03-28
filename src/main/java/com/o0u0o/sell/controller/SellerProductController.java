@@ -2,6 +2,7 @@ package com.o0u0o.sell.controller;
 
 import com.o0u0o.sell.dataobject.ProductCategory;
 import com.o0u0o.sell.dataobject.ProductInfo;
+import com.o0u0o.sell.exception.SellException;
 import com.o0u0o.sell.service.ProductCategoryService;
 import com.o0u0o.sell.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,42 @@ public class SellerProductController {
         return new ModelAndView("product/list", map);
     }
 
+    @GetMapping("/on_sale")
+    public ModelAndView onSale(@RequestParam("productId") String productId,
+                               Map<String, Object> map){
+        try{
+            //商家商品
+            productInfoService.onSale(productId);
+        }catch (SellException e){
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/product/list");
+            return new ModelAndView("common/error", map);
+        }
+
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
+    }
+
+
+    @GetMapping("/off_sale")
+    public ModelAndView offSale(@RequestParam("productId") String productId,
+                               Map<String, Object> map){
+        try{
+            //商家商品
+            productInfoService.offSale(productId);
+        }catch (SellException e){
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/product/list");
+            return new ModelAndView("common/error", map);
+        }
+
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
+    }
+
     /**
      * 商品详情页
-     * @param productId
+     * @param productId 商品ID
      * @param map
      * @return
      */
