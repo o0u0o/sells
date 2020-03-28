@@ -3,7 +3,7 @@ package com.o0u0o.sell.service.impl;
 import com.o0u0o.sell.config.UpYunConfig;
 import com.o0u0o.sell.dataobject.ProductInfo;
 import com.o0u0o.sell.dto.CartDTO;
-import com.o0u0o.sell.enums.ProductStatus;
+import com.o0u0o.sell.enums.ProductStatusEnum;
 import com.o0u0o.sell.enums.ResultEnum;
 import com.o0u0o.sell.exception.SellException;
 import com.o0u0o.sell.repository.ProductInfoRepository;
@@ -42,7 +42,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Override
     public List<ProductInfo> findUpAll() {
-        return repository.findByProductStatus(ProductStatus.UP.getCode()).stream()
+        return repository.findByProductStatus(ProductStatusEnum.UP.getCode()).stream()
                 .map(e -> e.addImageHost(upYunConfig.getImageHost()))
                 .collect(Collectors.toList());
     }

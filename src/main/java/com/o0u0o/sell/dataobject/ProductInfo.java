@@ -1,11 +1,15 @@
 package com.o0u0o.sell.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.o0u0o.sell.enums.ProductStatusEnum;
+import com.o0u0o.sell.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @Author aiuiot
@@ -40,6 +44,17 @@ public class ProductInfo {
 
     /** 类目编号. */
     private Integer categoryType;
+
+    /** 创建时间 */
+    private Date createTime;
+
+    /** 更新时间 */
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
     /**
      * 图片链接加host拼接成完整 url

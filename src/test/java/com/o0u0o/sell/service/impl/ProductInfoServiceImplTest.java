@@ -1,7 +1,7 @@
 package com.o0u0o.sell.service.impl;
 
 import com.o0u0o.sell.dataobject.ProductInfo;
-import com.o0u0o.sell.enums.ProductStatus;
+import com.o0u0o.sell.enums.ProductStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +52,7 @@ public class ProductInfoServiceImplTest {
         productInfo.setProductIcon("http://www.o0u0o.com");
         productInfo.setProductStock(100);
         productInfo.setProductPrice(new BigDecimal(43));
-        productInfo.setProductStatus(ProductStatus.UP.getCode());
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
         ProductInfo save = productInfoService.save(productInfo);
         Assert.assertNotNull(save);
     }
