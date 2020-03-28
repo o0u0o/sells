@@ -39,7 +39,7 @@ public class OrderServiceImplTest {
     @Test
     public void create() {
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setBuyerName("李长青");
+        orderDTO.setBuyerName("周伍");
         orderDTO.setBuyerAddress("四川省资阳市安岳县");
         orderDTO.setBuyerPhone("13009791620");
         orderDTO.setBuyerOpenid(BUYER_OPENID);
