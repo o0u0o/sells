@@ -26,7 +26,7 @@
         <!--    配置滚动策略    -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 路径  -->
-            <fileNamePattern>/Users/duxuetech/Desktop/sell/info.%d.log</fileNamePattern>
+            <fileNamePattern>/Users/aiuiot/Desktop/sell/info.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
@@ -44,7 +44,7 @@
         <!--    配置滚动策略    -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 路径  -->
-            <fileNamePattern>/Users/duxuetech/Desktop/sell/error.%d.log</fileNamePattern>
+            <fileNamePattern>/Users/aiuiot/Desktop/sell/error.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
