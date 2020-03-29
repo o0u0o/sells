@@ -15,6 +15,7 @@ import java.util.Date;
  * @Author aiuiot
  * @Date 2020/2/4 6:02 下午
  * @Descripton: 商品信息
+ * 注解 @DynamicUpdate 作用 自动跟新时间
  **/
 @Entity
 @Data

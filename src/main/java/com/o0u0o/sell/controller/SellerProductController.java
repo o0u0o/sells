@@ -35,8 +35,8 @@ public class SellerProductController {
 
     /**
      * 商品列表
-     * @param page
-     * @param size
+     * @param page 第几页
+     * @param size 数据量
      * @param map
      * @return
      */
@@ -52,6 +52,12 @@ public class SellerProductController {
         return new ModelAndView("product/list", map);
     }
 
+    /**
+     * 商品商家
+     * @param productId 商品ID
+     * @param map
+     * @return
+     */
     @GetMapping("/on_sale")
     public ModelAndView onSale(@RequestParam("productId") String productId,
                                Map<String, Object> map){
@@ -68,7 +74,12 @@ public class SellerProductController {
         return new ModelAndView("common/success", map);
     }
 
-
+    /**
+     * 商品下架
+     * @param productId 商品ID
+     * @param map
+     * @return
+     */
     @GetMapping("/off_sale")
     public ModelAndView offSale(@RequestParam("productId") String productId,
                                Map<String, Object> map){
