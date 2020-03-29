@@ -15,7 +15,7 @@
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
-                            <th>类目id</th>
+                            <th>类目ID</th>
                             <th>名字</th>
                             <th>type</th>
                             <th>创建时间</th>
