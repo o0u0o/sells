@@ -1,8 +1,11 @@
 package com.o0u0o.sell.service.impl;
 
 import com.o0u0o.sell.exception.SellException;
+import com.o0u0o.sell.service.RedisLock;
 import com.o0u0o.sell.service.SecKillService;
 import com.o0u0o.sell.utils.KeyUtil;
+import org.omg.CORBA.TIMEOUT;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,6 +19,11 @@ import java.util.Map;
 @Service
 public class SecKillServiceImpl implements SecKillService {
 
+    /** 超时时间10秒 */
+    private static final int TIMEOUT = 10 * 1000;
+
+    @Autowired
+    private RedisLock redisLock;
     /**
      * 国庆活动，皮蛋粥特价，限量 100000 份
      */
@@ -69,25 +77,38 @@ public class SecKillServiceImpl implements SecKillService {
      * 2、基于Redis 分布式锁
      */
     @Override
-    public synchronized void orderProductMockDiffUser(String productId) {
+    //public synchronized void orderProductMockDiffUser(String productId) {
+    public void orderProductMockDiffUser(String productId) {
+        String key = "sells_product_id_" + productId;
+        // ========== 加锁 ==========
+        Long time = System.currentTimeMillis() + TIMEOUT;
+        //判断是否枷锁成功 不成功 排除异常
+        if (!redisLock.lock(key, String.valueOf(time))){
+            throw new SellException(101, "哎哟喂， 人也太多了，换个姿势再试试～～");
+        }
+
         //1、查询该商品库存，为 0 则活动结束
         int stockNum = stock.get(productId);
         if (stockNum == 0){
             throw new SellException(100, "秒杀活动结束");
+        }else {
+            //2、下单 随机生产orderId
+            orders.put(KeyUtil.genUniqueKey(), productId);
+
+            //3、减库存 库存 -1
+            stockNum = stockNum - 1;
+            try {
+                //模拟业务处理时间
+                Thread.sleep(100);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            stock.put(productId, stockNum);
         }
 
-        //2、下单 随机生产orderId
-        orders.put(KeyUtil.genUniqueKey(), productId);
-
-        //3、减库存 库存 -1
-        stockNum = stockNum - 1;
-        try {
-            //模拟业务处理时间
-            Thread.sleep(100);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
-        stock.put(productId, stockNum);
+        // ========== 解锁 ==========
+        redisLock.unlock(key, String.valueOf(time));
     }
+
 
 }

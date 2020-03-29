@@ -3,6 +3,7 @@ package com.o0u0o.sell.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -11,7 +12,9 @@ import java.math.BigDecimal;
  * @Descripton: 商品详情
  **/
 @Data
-public class ProductInfoVO {
+public class ProductInfoVO implements Serializable {
+
+    private static final long serialVersionUID = -3379934944601962221L;
 
     @JsonProperty("id")
     private String productId;

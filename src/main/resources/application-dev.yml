@@ -10,7 +10,13 @@ spring:
   # 配置为空的字段不返回给前端
   jackson:
     default-property-inclusion: non_null
-
+  redis:
+    host: 118.24.74.61
+    port: 6379
+    password: puEYGSomuUP65KU6
+#  redis:
+#    host: 47.104.16.19
+#    port: 6379
 # 项目名
 server:
   servlet:

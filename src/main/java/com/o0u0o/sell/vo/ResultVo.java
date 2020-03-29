@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.o0u0o.sell.enums.ResultEnum;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author aiuiot
  * @Date 2020/2/5 4:58 下午
@@ -13,7 +15,9 @@ import lombok.Data;
  **/
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResultVo<T> {
+public class ResultVo<T> implements Serializable {
+
+    private static final long serialVersionUID = 5550687276109221793L;
 
     /** 错误码. */
     private Integer code;
