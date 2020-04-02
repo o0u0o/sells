@@ -137,7 +137,7 @@ public class SellerProductController {
      */
     @PostMapping("/save")
     //@CachePut(cacheNames = "sells_product", key = "123")
-    @CacheEvict(cacheNames = "sells_product", allEntries = true, beforeInvocation = true)
+    //@CacheEvict(cacheNames = "sells_product", allEntries = true, beforeInvocation = true)
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map){

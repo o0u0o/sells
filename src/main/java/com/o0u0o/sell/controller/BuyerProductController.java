@@ -39,7 +39,8 @@ public class BuyerProductController {
      */
     @GetMapping("/list")
     //@Cacheable(cacheNames = "sells_product", key = "product_list")
-    @Cacheable(cacheNames = "sells_product", key = "123")
+    //@Cacheable(cacheNames = "sells_product", key = "123")
+    //@Cacheable(cacheNames = "sells_product", key = "#sellerId", condition = "#sellerId > 3", unless = "#result.getCode() != 0")
     public ResultVo list(){
         //1.查询所有上架的商品
         List<ProductInfo> productInfoList = productInfoService.findUpAll();

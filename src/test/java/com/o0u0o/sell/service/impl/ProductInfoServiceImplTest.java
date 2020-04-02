@@ -42,6 +42,9 @@ public class ProductInfoServiceImplTest {
         Assert.assertNotEquals(0, productInfos.getTotalElements());
     }
 
+    /***
+     * 保存&新增
+     */
     @Test
     public void save() {
         ProductInfo productInfo = new ProductInfo();
@@ -55,5 +58,23 @@ public class ProductInfoServiceImplTest {
         productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
         ProductInfo save = productInfoService.save(productInfo);
         Assert.assertNotNull(save);
+    }
+
+    /**
+     * 上架商品
+     */
+    @Test
+    public void onSale(){
+        ProductInfo productInfo = productInfoService.onSale("123456");
+        Assert.assertEquals(ProductStatusEnum.UP.getCode(), productInfo.getProductStatus());
+    }
+
+    /**
+     * 下架商品
+     */
+    @Test
+    public void offSale(){
+        ProductInfo productInfo = productInfoService.offSale("123456");
+        Assert.assertEquals(ProductStatusEnum.DOWN.getCode(), productInfo.getProductStatus());
     }
 }

@@ -9,6 +9,9 @@ import com.o0u0o.sell.exception.SellException;
 import com.o0u0o.sell.repository.ProductInfoRepository;
 import com.o0u0o.sell.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
  * @Descripton:
  **/
 @Service
+@CacheConfig(cacheNames = "sells_product")
 public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Autowired
@@ -33,6 +37,8 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     private UpYunConfig upYunConfig;
 
     @Override
+    //@Cacheable(cacheNames = "sells_product", key = "123")
+    @Cacheable(key = "123")
     public ProductInfo findOne(String productId) {
         Optional<ProductInfo> productInfoOptional = repository.findById(productId);
         //如果查询出又内容
@@ -52,7 +58,14 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         return repository.findAll(pageable);
     }
 
+    /**
+     * CachePut 的key 不填写 默认会填写方法名
+     * @param productInfo
+     * @return
+     */
     @Override
+    //@CachePut(cacheNames = "sells_product", key = "123")
+    @CachePut(key = "123")
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }
